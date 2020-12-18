@@ -1,0 +1,81 @@
+<div class="row">
+                <div class="col-md-12">
+                  <div class="card shadow mb-4">
+                    <div class="card-header">
+                      <strong class="card-title">Sản phẩm {{sp.ma_sp}}</strong>
+                    </div>
+                    <div class="card-body">
+                      <form method="POST" enctype="multipart/form-data">
+                        <div class="form-row">
+                          
+                            <label for="inputEmail4">Tên</label>
+                            <input type="text" class="form-control" id="inputAddress5" value="{{sp.ten_sp}}" name="ten_sp">
+                          
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-4">
+                            <label for="inputState">Loại</label>
+                            <select id="inputState5" class="form-control" selected="{{ten_loai}}">
+                              {{#each dsl}}
+                                {{#if selected}}
+                                  <option values = "{{ma_loai}}" selected >{{ten_loai}}</option>
+                                {{else}}
+                                  <option values = "{{ma_loai}}">{{ten_loai}}</option>
+                                {{/if}}
+                              {{/each}}
+                            </select>
+                          </div>
+                        
+                          <div class="form-group col-md-2">
+                            <label for="inputZip">Tồn</label>
+                            <input type="text" class="form-control" id="inputZip5" value="{{sp.sl_ton}}" name="sl_ton">
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="inputZip">Giá</label>
+                            <input type="text" class="form-control" id="inputZip5" value="{{sp.gia}}" name="gia">
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="inputZip">Giảm giá (%)</label>
+                            <input type="text" class="form-control" id="inputZip5" value="{{sp.giam_gia}}" name="giam_gia">
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">Đánh giá</label>
+                            <input type="text" class="form-control" id="inputPassword5" value="{{sp.danh_gia}}" name ="danh_gia">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">Lượt đánh giá</label>
+                            <input type="text" class="form-control" id="inputPassword5" value="{{sp.so_luot_danh_gia}}" name="so_luot_danh_gia">
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <label for="validationTextarea1">Mô tả</label>
+                          <textarea class="form-control" id="validationTextarea1" required="" rows="3" name="mo_ta">{{sp.mo_ta}}</textarea>
+                          <div class="invalid-feedback"> Please enter a message in the textarea. </div>
+                        </div>
+
+                        
+                        
+
+                        
+                        <div class="form-row">
+                          <label for="validationTextarea1">Hình ảnh</label>
+                        </div>
+                        <div class="form-row">
+                            <input type = "file" name="cover">
+                        </div>
+                
+
+
+
+
+                        <div class="form-row">
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                        
+                      </form>
+                    </div> <!-- /. card-body -->
+                  </div> <!-- /. card -->
+                </div> <!-- /. col -->
+              </div> <!-- /. end-section -->
