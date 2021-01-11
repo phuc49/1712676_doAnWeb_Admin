@@ -1,0 +1,68 @@
+<!--==================================
+=            User Profile            =
+===================================-->
+
+<section class="user-profile section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 col-lg-3 offset-lg-0">
+                <div class="sidebar">
+                    <!-- User Widget -->
+                    <div class="widget user">
+                        <!-- User Image -->
+                        <div class="image  d-flex justify-content-center">
+                            <img src="{{image}}" alt="" class="col-md-12">
+                        </div>
+                        <div class="row"><p></p></div>
+                        <!-- User Name -->
+                        <h5 class="text-center">{{name}}</h5>
+                    </div>
+                    <!-- Dashboard Links -->
+                    <div class="widget dashboard-links">
+                        <p class="my-1 d-inline-block">Mã người dùng: &emsp;{{id}}</p>
+                        <p class="my-1 d-inline-block">Loại người dùng: &nbsp;{{role}}</p>
+                        <p class="my-1 d-inline-block">Tình trạng: &emsp;&emsp;&emsp;{{status}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 offset-md-1 col-lg-9 offset-lg-0">
+                <!-- Edit Profile Welcome Text -->
+
+                <!-- Edit Personal Info -->
+                <div class="row">
+                    <div class="col-lg-9 col-md-9">
+                        <div class="widget personal-info">
+                            <h3 class="widget-header user">Thông tin tài khoản</h3>
+                           
+                                <!-- Name -->
+                                <div class="form-group">
+                                    <label for="last-name">Họ tên</label>
+                                    <input readonly type="text" class="form-control" id="info-name" value="{{name}}" name="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="comunity-name">Email </label>
+                                    <input readonly type="text" class="form-control" id="info-phone" value="{{email}}"
+                                        name="phone_number">
+                                </div>
+                                <!-- Comunity Name -->
+                                <div class="form-group">
+                                    <label for="comunity-name">Số điện thoại </label>
+                                    <input readonly type="text" class="form-control" id="info-phone" value="{{phone_number}}"
+                                        name="phone_number">
+                                </div>
+                                <!-- Checkbox -->
+                                <!-- Zip Code -->
+                                <div class="form-group">
+                                    <label for="zip-code">Ngày sinh</label>
+                                    <input readonly type="text" class="form-control" id="info-birthday" value="{{date_of_birth}}"
+                                        name="date_of_birth">
+                                </div>
+                               
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

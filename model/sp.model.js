@@ -20,7 +20,7 @@ module.exports = {
     db.load(`SELECT ${viewFields} 
                FROM ${TABLE}
                WHERE p.id = ${productId} `),
-  all: (offset, limit, { name, category_id, price, discount, orderBy }) => {
+  all: (offset, limit, { name, category_id, orderBy }) => {
     let condition = "";
     let params = [];
     if (name) {
@@ -36,13 +36,6 @@ module.exports = {
       params,
       ` AND category_id = ?`,
       category_id
-    );
-    condition = buildCondition(condition, params, ` AND price <= ?`, price);
-    condition = buildCondition(
-      condition,
-      params,
-      ` AND discount >= ?`,
-      discount
     );
 
     var order = "p.id ASC";
@@ -63,15 +56,8 @@ module.exports = {
       params
     );
   },
-  allByPage: (offset, limit) =>
-    db.load(
-      `SELECT ${viewFields}
-       FROM ${TABLE}
-       LIMIT ?,?`,
-      [offset * limit, limit]
-    ),
 
-  count: ({ name, category_id, price, discount }) => {
+  count: ({ name, category_id}) => {
     let condition = "";
     let params = [];
     if (name) {
@@ -88,13 +74,6 @@ module.exports = {
       ` AND category_id = ?`,
       category_id
     );
-    condition = buildCondition(condition, params, ` AND price <= ?`, price);
-    condition = buildCondition(
-      condition,
-      params,
-      ` AND discount >= ?`,
-      discount
-    );
 
     return db.load(
       `SELECT COUNT(*) AS sl 
@@ -103,20 +82,6 @@ module.exports = {
     );
   },
 
-  countByCategory: (category) =>
-    db.load(`SELECT COUNT(*) AS sl FROM products WHERE id = ${category}`),
-  allByName: (productName, offset, limit) =>
-    db.load(
-      `SELECT ${viewFields} 
-       FROM ${TABLE} 
-       WHERE p.name LIKE '%${productName}%' 
-       LIMIT ?,?`,
-      [offset * limit, limit]
-    ),
-  countByName: (productName) =>
-    db.load(
-      `SELECT COUNT(*) AS sl FROM products WHERE name LIKE '%${productName}%'`
-    ),
   add: (entity) => db.add("products", entity),
   edit: (entity, id) => db.edit("products", entity, { id: id }),
   del: (id) => db.del("products", { id: id }),

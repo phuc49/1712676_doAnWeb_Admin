@@ -12,9 +12,9 @@ exports.all = async (req, res, next) => {
   /// phân trang
   let page = +req.query.page || 1;
   const limit = +req.query.page_size || 12;
-  const { category: category_id, name, price, discount, orderBy } = req.query;
+  const { category: category_id, name, orderBy } = req.query;
 
-  const count = await model.count({ category_id, name, price, discount });
+  const count = await model.count({ category_id, name });
   lastPage = Math.ceil(count[0].sl / limit);
   qs.page = lastPage;
   const lastPageQs = queryString.stringify(qs);
@@ -36,8 +36,6 @@ exports.all = async (req, res, next) => {
   const dssp = await model.all(page - 1, limit, {
     category_id,
     name,
-    price,
-    discount,
     orderBy 
   });
   const dsl = await loai.all();
@@ -51,23 +49,7 @@ exports.all = async (req, res, next) => {
 };
 
 
-exports.allByCategory = async (req, res, next) => {
-  console.log(req.params.id)
-    const page = +req.query.page || 1;
-    const limit = +req.query.page_size || 12;
-    const count = await model.countByCategory(req.params.id);
-    const len = Math.ceil((count[0].sl)/limit);
-  
-    const pageList = [];
-    for (let i = page - 1; i <= Math.min(page + 1, len) ; i++) {
-      if (i > 0) pageList.push({ page: i, active: i === page });
-    }
-  
-    const dssp = await model.allByCategory(req.params.id, page-1, limit);
 
-    const dsl = await loai.all();
-    res.render("index", { dssp, page, pageList, len , dsl});
-  };
 
 exports.singleID = async (req,res,next) => {
   const sp = await model.singleID(req.params.id);
@@ -80,24 +62,6 @@ exports.singleID = async (req,res,next) => {
   res.render('chitiet', {dsl, p: sp[0]});
 }
 
-
-exports.allByName = async (req, res, next) => {
-  const page = +req.query.page || 1;
-  const limit = +req.query.page_size || 12;
-
-  const count = await model.countByName(req.body.name);
-  const len = Math.ceil((count[0].sl)/limit);
-  
-
-  const pageList = [];
-  for (let i = page - 1; i <= Math.min(page + 1, len) ; i++) {
-    if (i > 0) pageList.push({ page: i, active: i === page });
-  }
-
-  const dssp = await model.allByName(req.body.name, page-1, limit);
-  const dsl = await loai.all();
-  res.render("index", { dssp, page, pageList, len, dsl });
-};
 
 exports.add = async (req, res, next) => {
   const entity = req.body;
