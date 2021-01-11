@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="/stylesheets/jquery.steps.css">
     <link rel="stylesheet" href="/stylesheets/jquery.timepicker.css">
     <link rel="stylesheet" href="/stylesheets/quill.snow.css">
+
+    <script src="/javascripts/ham.js"></script>
   </head>
   
   <body class="vertical  dark  ">
@@ -36,8 +38,8 @@
         <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
           <i class="fe fe-menu navbar-toggler-icon"></i>
         </button>
-        <form method="POST" class="form-inline mr-auto searchform text-muted">
-          <input class="form-control mr-sm-8 bg-transparent border-0 pl-4 text-muted" type="search" placeholder="Bạn cần tìm gì?" aria-label="Search" name="ten">
+        <form method="GET" class="form-inline mr-auto searchform text-muted">
+          <input class="form-control mr-sm-8 bg-transparent border-0 pl-4 text-muted" type="search" placeholder="Bạn cần tìm gì?" aria-label="Search" name="name">
         </form>
         <ul class="nav">
           <li class="nav-item">
@@ -99,9 +101,12 @@
                 </li>
                 {{#each dsl}}
                 <li class="nav-item active">
-                  <a class="nav-link pl-3" href="/{{ma_loai}}"><span class="ml-1 item-text">{{ten_loai}}</span></a>
+                  <a class="nav-link pl-3" href="/?category={{id}}"><span class="ml-1 item-text">{{name}}</span></a>
                 </li>
                 {{/each}}
+                <li class="nav-item active">
+                  <a class="nav-link pl-3" href="/sp-them"><span class="ml-1 item-text">Thêm sản phẩm</span></a>
+                </li>
               </ul>
             </li>
           </ul>
@@ -354,13 +359,14 @@
               </a>
             </li>
           </ul>
-          -->
-          <div class="btn-box w-100 mt-4 mb-1">
-            <button type="button" class="btn mb-2 btn-primary btn-lg btn-block">
-              <i class="fe fe-shopping-cart fe-12 mr-2"></i><span class="small">Thêm sản phẩm</span>
-            </button>
-          </div>
           
+          <div class="btn-box w-100 mt-4 mb-1">
+            <a type="button" class="btn mb-2 btn-primary btn-lg btn-block">
+              <i class="fe fe-shopping-cart fe-12 mr-2"></i><span class="small">Thêm sản phẩm</span>
+            </a>
+          </div>
+          -->
+
         </nav>
       </aside>
       <main role="main" class="main-content">

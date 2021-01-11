@@ -1,12 +1,13 @@
 const mysql = require("mysql");
-const dbConfig = require("../config/db.config");
 const util = require('util');
+require('dotenv').config();
 
 const pool = mysql.createPool({
-    host: dbConfig.host,
-    user: dbConfig.user,
-    password: dbConfig.password,
-    database: dbConfig.database
+    host: process.env.host,
+    user: process.env.user,
+    password: process.env.password,
+    database: process.env.database,
+    connectionLimit: process.env.connectionLimit
 });
 
 const mysql_query = util.promisify(pool.query).bind(pool);

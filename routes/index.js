@@ -5,8 +5,12 @@ var sp = require('../controller/sp.controller');
 module.exports = router;
 
 router.get("/", sp.all);
-router.get("/:loai_sp", sp.allByCategory);
-router.get("/sp/:ma_sp", sp.singleID);
 
-router.post("/", sp.allByName);
-router.post("/sp/:ma_sp", sp.edit)
+router.get("/sp/:id", sp.singleID);
+
+//router.post("/", sp.allByName);
+router.post("/sp/:id", sp.edit);
+router.get("/sp-them", sp.them);
+router.post("/sp-them", sp.add);
+
+router.get("/sp-xoa/:id", sp.delete);
