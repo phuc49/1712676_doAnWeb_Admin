@@ -1,16 +1,24 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var sp = require('../controller/sp.controller');
+var sp = require("../controller/users.controller");
+const passport = require("../passport");
+
+router.get("/", function (req, res, next) {
+  res.render("login");
+});
+
+router.post(
+  "/",
+  passport.authenticate("local", {
+    successRedirect: "/products",
+    failureRedirect: "/?error=wrong-password",
+    failureFlash: false,
+  })
+);
+
+router.get("/logout", function (req, res) {
+  req.logout();
+  res.redirect("/");
+});
 
 module.exports = router;
-
-router.get("/", sp.all);
-
-router.get("/sp/:id", sp.singleID);
-
-//router.post("/", sp.allByName);
-router.post("/sp/:id", sp.edit);
-router.get("/sp-them", sp.them);
-router.post("/sp-them", sp.add);
-
-router.get("/sp-xoa/:id", sp.delete);

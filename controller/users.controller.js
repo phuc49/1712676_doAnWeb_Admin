@@ -6,6 +6,9 @@ const model = require("../model/users.model");
 const loai = require('../model/loai.model');
 
 exports.all = async (req, res, next) => {
+  if (!req.user) {
+    res.redirect("/");
+  }
   let qs = { ...req.query };
 
   /// phân trang
@@ -48,12 +51,11 @@ exports.all = async (req, res, next) => {
 };
 
 exports.singleID = async (req,res,next) => {
+  if (!req.user) {
+    res.redirect("/");
+  }
   const user = await model.singleID(req.params.id);
-  //user[0].image = process.env.user_image_folder + user[0].image;
-
-console.log(user);
-
   const dsl = await loai.all();
   
-  res.render('user', user[0]);
+  res.render('user', {dsl,u: user[0]});
 }

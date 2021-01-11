@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 const db = require("./db.js");
 const { buildCondition } = require("../helper/helper.js");
 
@@ -12,10 +14,14 @@ const viewFields = [
   "role",
   "status",
   "phone_number",
-  "date_of_birth"
+  "date_of_birth",
 ];
 
 module.exports = {
+  getUser: (id) =>
+    db.load(`SELECT "id", "email", "password", "role", "created_date", "status", "verified_code"
+                              FROM users
+                              WHERE id = '${id}'`),
   singleID: (id) =>
     db.load(
       `SELECT ${viewFields} , image
@@ -79,4 +85,18 @@ module.exports = {
   },
 
   edit: (status, id) => db.edit("products", status, { id: id }),
+  checkCredential: async (username, password) => {
+    const user = await db.load(
+      `SELECT id, email, password, status, role
+                                FROM users
+                                WHERE email = ?`,
+      username
+    );
+
+    if (!user || user.length == 0) return false;
+
+    let checkPassword = await bcrypt.compare(password, user[0].password);
+    if (checkPassword) return user[0];
+    return false;
+  },
 };

@@ -37,6 +37,7 @@
 </head>
 
 <body class="vertical  dark  ">
+  {{#if user}}
   <div class="wrapper">
     <nav class="topnav navbar navbar-light">
       <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
@@ -85,7 +86,7 @@
       <nav class="vertnav navbar navbar-light">
         <!-- nav bar -->
         <div class="w-100 mb-4 d-flex">
-          <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="/">
+          <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="/products">
             <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
               <g>
@@ -105,15 +106,15 @@
             </a>
             <ul class="collapse list-unstyled pl-4 w-100" id="products">
               <li class="nav-item active">
-                <a class="nav-link pl-3" href="/"><span class="ml-1 item-text">Tất cả</span></a>
+                <a class="nav-link pl-3" href="/products/"><span class="ml-1 item-text">Tất cả</span></a>
               </li>
               {{#each dsl}}
               <li class="nav-item active">
-                <a class="nav-link pl-3" href="/?category={{id}}"><span class="ml-1 item-text">{{name}}</span></a>
+                <a class="nav-link pl-3" href="/products/?category={{id}}"><span class="ml-1 item-text">{{name}}</span></a>
               </li>
               {{/each}}
               <li class="nav-item active">
-                <a class="nav-link pl-3" href="/sp-them"><span class="ml-1 item-text">Thêm sản phẩm</span></a>
+                <a class="nav-link pl-3" href="/products/add"><span class="ml-1 item-text">Thêm sản phẩm</span></a>
               </li>
             </ul>
           </li>
@@ -140,6 +141,7 @@
             </ul>
           </li>
         </ul>
+      {{/if}}
         <!--  
           <p class="text-muted nav-heading mt-4 mb-1">
             <span>Components</span>

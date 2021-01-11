@@ -7,6 +7,9 @@ const model = require('../model/sp.model');
 const loai = require('../model/loai.model');
 
 exports.all = async (req, res, next) => {
+  if (!req.user) {
+    res.redirect("/");
+  }
   let qs = { ...req.query };
   //const q = queryString.stringify(qs);
   /// phân trang
@@ -39,7 +42,7 @@ exports.all = async (req, res, next) => {
     orderBy 
   });
   const dsl = await loai.all();
-  res.render("index", {
+  res.render("products", {
     dssp,
     pageList,
     lastPageQs,
@@ -52,6 +55,9 @@ exports.all = async (req, res, next) => {
 
 
 exports.singleID = async (req,res,next) => {
+  if (!req.user) {
+    res.redirect("/");
+  }
   const sp = await model.singleID(req.params.id);
   const dsLoai = await loai.all();
   var dsl = [];
@@ -59,11 +65,14 @@ exports.singleID = async (req,res,next) => {
     dsl.push({selected:(dsLoai[i].id == sp[0].category_id), name:dsLoai[i].name, id:dsLoai[i].id});
   }
   
-  res.render('chitiet', {dsl, p: sp[0]});
+  res.render('product', {dsl, p: sp[0]});
 }
 
 
 exports.add = async (req, res, next) => {
+  if (!req.user) {
+    res.redirect("/");
+  }
   const entity = req.body;
   if(entity)
   {
@@ -72,6 +81,9 @@ exports.add = async (req, res, next) => {
 };
 
 exports.edit = async (req, res, next) => {
+  if (!req.user) {
+    res.redirect("/");
+  }
   console.log(req.body);
   const form = formidable({ multiples: true });
 
@@ -96,13 +108,19 @@ exports.edit = async (req, res, next) => {
 } 
 
 exports.them = async (req,res,next) => {
+  if (!req.user) {
+    res.redirect("/");
+  }
   const dsl = await loai.all();
-  res.render('chitiet', {dsl});
+  res.render('product', {dsl});
 }
 
 
 exports.add = async (req, res, next) => {
-  console.log(req.body);
+  if (!req.user) {
+    res.redirect("/");
+  }
+
   const form = formidable({ multiples: true });
 
   form.parse(req, (err, fields, files) => {
@@ -127,6 +145,9 @@ exports.add = async (req, res, next) => {
 } 
 
 exports.delete = (req,res,next) => {
+  if (!req.user) {
+    res.redirect("/");
+  }
   model.del(req.params.id).then(() => {
     res.redirect("/");
   });
