@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var sp = require("../controller/users.controller");
+var users = require("../controller/users.controller");
 const passport = require("../passport");
 
 router.get("/", function (req, res, next) {
@@ -20,5 +20,8 @@ router.get("/logout", function (req, res) {
   req.logout();
   res.redirect("/");
 });
+
+router.get("/account", users.account);
+router.post("/account", users.editAdmin);
 
 module.exports = router;

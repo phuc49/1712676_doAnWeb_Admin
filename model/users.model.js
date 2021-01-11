@@ -19,9 +19,9 @@ const viewFields = [
 
 module.exports = {
   getUser: (id) =>
-    db.load(`SELECT "id", "email", "password", "role", "created_date", "status", "verified_code"
-                              FROM users
-                              WHERE id = '${id}'`),
+    db.load(`SELECT u.id as id, email, password, role, created_date, status, verified_code, image
+                              FROM ${AD_TABLE}
+                              WHERE u.id = '${id}'`),
   singleID: (id) =>
     db.load(
       `SELECT ${viewFields} , image
@@ -84,7 +84,7 @@ module.exports = {
     );
   },
 
-  edit: (status, id) => db.edit("products", status, { id: id }),
+  editAdmin: (entity, id) => db.edit("admin", entity, { id: id }),
   checkCredential: async (username, password) => {
     const user = await db.load(
       `SELECT id, email, password, status, role
@@ -99,4 +99,6 @@ module.exports = {
     if (checkPassword) return user[0];
     return false;
   },
+  
+  edit: (entity, id) => db.edit("users", entity, { id: id })
 };

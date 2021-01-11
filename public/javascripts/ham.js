@@ -47,3 +47,17 @@ function checkLogin() {
     }
     return true;
 }
+
+function checkInfo() {
+    let phone = document.getElementById("info-phone").value;
+    var e = document.getElementById("error-phone");
+    if(!phone || phone.length !=10 || isNaN(phone))
+    {
+        e.textContent = "Vui lòng điền số điện thoại hợp lệ";
+        return false;
+    }
+
+    
+    return true;
+}
+

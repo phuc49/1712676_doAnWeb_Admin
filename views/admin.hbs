@@ -1,0 +1,80 @@
+<!--==================================
+=            User Profile            =
+===================================-->
+
+<section class="user-profile section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 col-lg-3 offset-lg-0">
+                <div class="sidebar">
+                    <!-- User Widget -->
+                    <div class="widget user">
+                        <!-- User Image -->
+                        <div class="image  d-flex justify-content-center">
+                            <img src="{{u.image}}" alt="" class="col-md-12">
+                        </div>
+                        <div class="row">
+                            <p></p>
+                        </div>
+                        <!-- User Name -->
+                        <h5 class="text-center">{{u.name}}</h5>
+                    </div>
+                    <!-- Dashboard Links -->
+                    <div class="widget dashboard-links">
+                        <p class="my-1 d-inline-block">Mã người dùng: &emsp;{{u.id}}</p>
+                        <p class="my-1 d-inline-block">Loại người dùng: &nbsp;{{u.role}}</p>
+                        <p class="my-1 d-inline-block">Tình trạng: &emsp;&emsp;&emsp;{{u.status}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 offset-md-1 col-lg-9 offset-lg-0">
+                <!-- Edit Profile Welcome Text -->
+
+                <!-- Edit Personal Info -->
+                <div class="row">
+                    <div class="col-lg-9 col-md-9">
+                        <div class="widget personal-info">
+                            <h3 class="widget-header user">Chỉnh sửa thông tin cá nhân</h3>
+                            <form method="POST" onsubmit="return checkInfo()" enctype="multipart/form-data">
+                            <!-- Name -->
+                            <div class="form-group">
+                                <label for="last-name">Họ tên</label>
+                                <input type="text" class="form-control" id="info-name" value="{{u.name}}" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="comunity-name">Email </label>
+                                <input type="text" class="form-control" id="info-phone" value="{{u.email}}"
+                                    name="phone_number">
+                            </div>
+                            <!-- Comunity Name -->
+                            <div class="form-group">
+                                <label for="comunity-name">Số điện thoại </label>
+                                <input type="text" class="form-control" id="info-phone" value="{{u.phone_number}}"
+                                    name="phone_number">
+                            </div>
+                            <!-- Checkbox -->
+                            <!-- Zip Code -->
+                            <div class="form-group">
+                                <label for="zip-code">Ngày sinh</label>
+                                <input type="text" class="form-control" id="info-birthday" value="{{u.date_of_birth}}"
+                                    name="date_of_birth">
+                            </div>
+                            <div class="form-group choose-file d-inline-flex">
+
+                                <input type="file" accept=".jpg, .png, .gif, .jpeg" class="form-control-file mt-2 pt-1"
+                                    id="input-file" name="image">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit"
+                                    class="d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold mt-3"
+                                    value="Lưu thay đổi">
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
