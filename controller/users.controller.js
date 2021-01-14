@@ -5,7 +5,7 @@ const fs = require("fs");
 
 require("dotenv").config();
 const model = require("../model/users.model");
-const loai = require('../model/loai.model');
+const loai = require('../model/category.model');
 
 exports.all = async (req, res, next) => {
   if (!req.user) {

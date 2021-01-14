@@ -4,7 +4,7 @@ const fs = require('fs');
 require('dotenv').config();
 
 const model = require('../model/sp.model');
-const loai = require('../model/loai.model');
+const loai = require('../model/category.model');
 
 exports.all = async (req, res, next) => {
   if (!req.user) {
@@ -73,18 +73,33 @@ exports.add = async (req, res, next) => {
   if (!req.user) {
     res.redirect("/");
   }
-  const entity = req.body;
-  if(entity)
-  {
-    await model.add(entity);
-  }
+  const form = formidable({ multiples: true });
+
+  form.parse(req, (err, fields, files) => {
+    if(err){
+      next(err);
+      return;
+    }
+
+    const coverImage = files.image;
+
+    if(coverImage && coverImage.size > 0){
+      const fileName = coverImage.path.split('\\').pop() + '.' + coverImage.name.split('.').pop();
+      fs.renameSync(coverImage.path, process.env.product_image_folder + '/' + fileName);
+      fields.image =" /images/sp/" + fileName;
+    }
+    
+    model.add(fields).then((response) => {
+      res.redirect("/products/product/" + response.insertId);
+    });
+  });
 };
 
 exports.edit = async (req, res, next) => {
   if (!req.user) {
     res.redirect("/");
   }
-  console.log(req.body);
+
   const form = formidable({ multiples: true });
 
   form.parse(req, (err, fields, files) => {
@@ -102,7 +117,7 @@ exports.edit = async (req, res, next) => {
     }
     
     model.edit(fields, req.params.id).then(() => {
-      res.redirect("/");
+      res.redirect("/products/product/" + req.params.id);
     });
   });
 } 
@@ -139,7 +154,7 @@ exports.add = async (req, res, next) => {
     
     delete fields.product_id;
     model.add(fields).then(() => {
-      res.redirect("/");
+      res.redirect("/products");
     });
   });
 } 
@@ -149,7 +164,7 @@ exports.delete = (req,res,next) => {
     res.redirect("/");
   }
   model.del(req.params.id).then(() => {
-    res.redirect("/");
+    res.redirect("/products");
   });
 }
 
